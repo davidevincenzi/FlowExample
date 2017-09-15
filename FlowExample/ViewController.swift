@@ -3,23 +3,23 @@
 //  FlowExample
 //
 //  Created by Davide Vincenzi on 15.09.17.
-//  Copyright © 2017 Agilentia AG. All rights reserved.
 //
 
 import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    @IBOutlet weak var selectionLabel: UILabel!
+    
+    @IBAction func startFlow(_ sender: Any) {
+        let flowCoordinator = ExampleFlowCoordinator(dependencies: appDependencies)
+        flowCoordinator.didSelectUser = { (user) in
+            self.selectionLabel.text = user.name
+            self.dismiss(animated: true, completion: nil)
+        }
+        flowCoordinator.finishFlow = {
+            self.dismiss(animated: true, completion: nil)
+        }
+        flowCoordinator.start(from: self)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
-
